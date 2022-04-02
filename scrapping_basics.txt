@@ -1,0 +1,25 @@
+Use the beautifulSoup library in pipinstall
+# from bs4 import BeautifulSoup
+
+To scrape from a reeal website need to requests library
+# import requests
+This library will request the actual website
+
+To return the html of the page
+requests.get('website').text 
+
+To call it need to create an instance of it 
+#  BeautifulSoup(htmlfile, 'typeofwaywantitobeparsed')
+
+Functions in beautfiul BeautifulSoup
+- prettify() displays the html content in a neat way
+- find, returns the first tag it finds 
+- find_all() returns all tags want to find
+
+
+Sometiems the html you get can be indented with spaces to replace this can use:
+- replace(' ', '')
+
+Another useful way to get rid of starting and ending white spaces is:
+- strip
+
