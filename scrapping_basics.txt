@@ -23,3 +23,7 @@ Sometiems the html you get can be indented with spaces to replace this can use:
 Another useful way to get rid of starting and ending white spaces is:
 - strip
 
+Different types of scraping
+- screen scraping: point and click, and tell visual page where data is
+- hard file exports: (data layer that twitter uses to populate the UI) manually use the site, capture the raw data that you access while using twitter format
+
