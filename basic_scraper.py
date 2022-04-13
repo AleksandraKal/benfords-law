@@ -1,5 +1,7 @@
 import requests
-from fp4 import BeautifulSoup
+from bs4 import BeautifulSoup
 
-requests.get()
-
+output = requests.get('https://www.youtube.com')
+soup = BeautifulSoup(output.content, "html.parser")
+print(output.text)
+ 
