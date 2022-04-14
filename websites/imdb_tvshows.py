@@ -1,15 +1,15 @@
 # scrapes through top 250 tv shows
+# notice - this data set is wrong, and heavuly skwed towards 2 since most of top movies were created in 2000s
+# more accurate data set - remove the year number
 import requests
 from bs4 import BeautifulSoup
 
 
 # -------------------  HELPER FUNCTIONS --------------------
 def freq_incrementer(number1, number2, freqList):
-    for num in number1:
-        freqList[num] += 1
-    for num2 in number2:
-        freqList[num2] += 1
-
+    freqList[number1[0]] += 1
+    freqList[number2[0]] += 1
+    
 # -----------------------------------------------------------
 # sending a request to fetch the url
 url = "https://www.imdb.com/chart/toptv/?ref_=nv_tvv_250"
@@ -22,7 +22,6 @@ trList = content.find("tbody", class_="lister-list").find_all("tr")
 
 # frequency data structure, that we will use to track
 freq = {
-    "0" : 0,
     "1" : 0,
     "2" : 0, 
     "3" : 0, 
@@ -41,21 +40,18 @@ for tr in trList:
     relase_yr = tr.find("span", class_="secondaryInfo").text[1:5]
     rating = tr.find("strong").text
     rank += 1
-
     # analyse the frequency of each number
     freq_incrementer(str(relase_yr), str(rating).replace(".",""),freq)
     
 # --------------------------------------
-# remove 0 from calucations
-freq.pop("0")
 
-total = 0
-for num in freq:
-    total += freq[num]
-print(f"The dataset is a list of 250 numbers with {total} characters")
+
+print(f"The dataset is a list of 250 numbers")
 print("-----------------------------")
 print("The distrubtion is :")
 for n in freq:
-    percent = (float(freq[n])/float(total)) * 100
-    print(f"for {n} it is {percent}")
+    percent = (float(freq[n])/250) * 100
+    percent = round(percent,2)
+    print(f"for {n} it is {percent} %")
+    
 
