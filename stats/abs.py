@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 
+
 # how to structure propely
 # def find_page(url):
 #     response = requests.get(url)
@@ -30,6 +31,7 @@ observedFreq = {
     "9":0,
 }
 
+# ------ finding the Components of annual population change from September 2001- September 2021
 rowData = table.find_all("tr")
 for row in rowData:
     tdTagList = row.find_all("td",class_="data-value")
@@ -48,3 +50,5 @@ for n in observedFreq:
     percent = round(percent,2)
     print(f"for {n} it is {percent} %")
     
+# note distrubtion has the same slope as downoard decreasing and follows similar 
+# pattenr to benfords law!
