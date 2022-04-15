@@ -1,14 +1,15 @@
 # scrapes through top 250 tv shows
 # notice - this data set is wrong, and heavuly skwed towards 2 since most of top movies were created in 2000s
+# for rating numbers also heavily skewed as all the numbers are in the range of [8-9] thus benfords law cannot apply
 # more accurate data set - remove the year number
 import requests
 from bs4 import BeautifulSoup
 
 
 # -------------------  HELPER FUNCTIONS --------------------
-def freq_incrementer(number1, number2, freqList):
+def freq_incrementer(number1,freqList):
     freqList[number1[0]] += 1
-    freqList[number2[0]] += 1
+
     
 # -----------------------------------------------------------
 # sending a request to fetch the url
@@ -37,11 +38,11 @@ freq = {
 rank = 1
 # the only numbers that we need for benfords law on the page are the ratings, rank and release year!
 for tr in trList:
-    relase_yr = tr.find("span", class_="secondaryInfo").text[1:5]
+    # relase_yr = tr.find("span", class_="secondaryInfo").text[1:5]
     rating = tr.find("strong").text
     rank += 1
     # analyse the frequency of each number
-    freq_incrementer(str(relase_yr), str(rating).replace(".",""),freq)
+    freq_incrementer(str(rating).replace(".",""),freq)
     
 # --------------------------------------
 
