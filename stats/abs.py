@@ -2,7 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 
 
-# how to structure propely
+#how to structure propely
 # def find_page(url):
 #     response = requests.get(url)
 #     response.raise_for_status()
@@ -16,7 +16,7 @@ absUrl = "https://www.abs.gov.au/statistics/people/population/national-state-and
 response = requests.get(absUrl)
 response.raise_for_status()
 content = BeautifulSoup(response.content, "lxml")
-table = content.find("table",id='chart-data-table_1xAWztwCrY')
+table = content.find("table",id='chart-data-table_uwMnWiWz0q')
 
 
 observedFreq = {
