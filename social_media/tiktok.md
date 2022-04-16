@@ -1,1 +1,3 @@
-My rationale behind, extracting Tiktok data was all based on my hypothesis, that numbers on the Tiktok algorthim seemed inflated, so l wanted to view TikToks trending page, to see if it worked. 
+My rationale behind, extracting Tiktok data was all based on my hypothesis, that numbers on the Tiktok algorthim seemed inflated, so l wanted to view TikToks trending page, to see if it followed benford distrubtion
+
+However, it became apperant that the page only scraped 2 tiktok videos on the account, this is because of the infinite scroll option on tiktok, which when is called by beautifulsoup only displays first 2 results. Thus, since this is limit on TikTok data l can obtain, l decided not to scrape any further
