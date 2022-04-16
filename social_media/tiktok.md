@@ -1,0 +1,1 @@
+My rationale behind, extracting Tiktok data was all based on my hypothesis, that numbers on the Tiktok algorthim seemed inflated, so l wanted to view TikToks trending page, to see if it worked. 
