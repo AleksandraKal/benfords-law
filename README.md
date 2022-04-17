@@ -6,7 +6,12 @@ This repo has *two* main parts, all with focous on benfords law:
 
 ## installation instructions
 Language used : Python
-Libraies: math, matplotlib.pyplot,  bs4, requests
-- to use scripts make sure to pip install above modules
+Libraies: [math, matplotlib.pyplot,  bs4, requests]
+To install packages follow command :
+```bash
+pip install [package]
+```
 
 # How to use?
+1. Run the python script, detect.py, locatetd in detection_software folder
+2. In the folder Scrapping, contains all the data scraped, run each script to see the data results in the graph! With each file is a markdown containing the intresting patterns l noticed from scrapping
