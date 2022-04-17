@@ -1,8 +1,11 @@
-from asyncio import FIRST_EXCEPTION
-from xxlimited import new
+from unicodedata import decimal
 import matplotlib.pyplot as plt
 import math
 import random
+import pandas as pd
+import matplotlib.pyplot as plt
+import math
+import xlsxwriter
 
 # global variables
 FIRST_ELEMENT = 0
@@ -15,8 +18,8 @@ x = [1,2,3,4,5,6,7,8,9]
 
 # error checking function
 def checkLength(data):
-    if (len(data) < 100):
-        print("Need to enter a data set greater then 100")
+    if (len(data) < 10):
+        print("Need to enter a data set greater then 10")
         exit()
 
 # finds the frequency
@@ -26,7 +29,9 @@ def findFreq(data):
         # remove any other caharcters a user might eneter
         # number = number.replace("0{a-b}","")
         number = str(number)
+        print(number)
         inputDataFreq[number[FIRST_ELEMENT]] += 1
+    print("------")
     return inputDataFreq
 
 # input : list of numbers for the data
@@ -45,10 +50,10 @@ Output : returns true, if data matched benford distrbution otherwise false
 Checks the data set needs to be at least 100 numbers!
 """
 def detection_data(data): 
-    # checkLength(data)
+    checkLength(data)
     inputDataFreq = findFreq(data)
     inputDataDist = []
-    # find total of list - another function
+    # todo : find total of list - another function
     total = 0
     for dig in inputDataFreq.values():
         total += dig
@@ -77,7 +82,6 @@ def manipulate_data(data):
     # what the distrubtion should be expected
     ouputmanipulatedData = []
     outputHash = transformData(data)
-    print(outputHash)
     tooAdd = []
     for digit in x:
         benfordOccurance = round(benfordDist[digit-1]*0.01*len(data))
@@ -97,7 +101,7 @@ def manipulate_data(data):
             if (len(tooAdd) > 0):
                 newNumber = str(digit) + str(tooAdd[FIRST_ELEMENT])[1:]
                 tooAdd.remove(tooAdd[FIRST_ELEMENT])
-                outputHash[str(digit)].append(int(newNumber))
+                outputHash[str(digit)].append(float(newNumber))
             else:
                 # loop through the amount of differences and generate a random number from the list to add
                 for i in range(0, diff):
@@ -106,13 +110,61 @@ def manipulate_data(data):
                     newNum = int (str(digit) + randomNum[1:5])
                     print(f"the num is :{newNum}")
                     outputHash[str(digit)].append(newNum)
+    return outputHash
 
 
-manipulate_data([10,100,1000,1,10000,2,2,2,20000,2000,20000,2000,2034893,238917,240893,34798,32098,49875,45978,5312809])
+# # find the current distrubiton 
+# # input - list
+# # return a list with the frequencies
+def findDistrubition(inputData):
+    inputDataFreq = findFreq(inputData)
+    inputDataDist = []
+    # todo : find total of list - another function
+    total = 0
+    for dig in inputDataFreq.values():
+        total += dig
+    
+    for digit in inputDataFreq.values():
+        perc = digit/total * 100
+        inputDataDist.append(perc)
+    return inputDataDist
+
+
+# shows the current distrubition of the graph
+# input = list 
+# output = graph displayed on screen comparing the input distrubiton to benford distrubtion
+def visualiseData(inputData):
+    inputDist = findDistrubition(inputData)
+    xAxis = [1,2,3,4,5,6,7,8,9]
+    plt.bar(xAxis,inputDist, color='grey')
+    plt.plot(xAxis, benfordDist,linestyle='dashed', marker='o', markerfacecolor='blue', markersize=5)
+    plt.title("Benford Test")
+    plt.xlabel('Leading digit')
+    plt.ylabel("Percentage")
+    plt.legend(["Expected Benford distrubution","Observed distrubiton"])
+    plt.show()
+
+# inpit = list of values want to output to a file
+def outputManipulatedDataToFile(manipulatedData, fileNamw):
+    excelBook = xlsxwriter.Workbook("manipulated{fileName}")
+    sheet = excelBook.add_worksheet()
+    for data in enumerate(manipulatedData):
+        sheet.write(0,data[0],data[1])
+    excelBook.close()
 
 if __name__ == "__main__":
-    data = [1,1,1,2,3,4,5]
-    if (not detection_data(data)):
-        manipulate_data(data)
-
-    
+    try:
+        fileName = 'manipulation_software/absresidentpopulation.xlsx'
+        excelBook = pd.read_excel(fileName,index_col=0)
+        print(excelBook.head())
+        inputData = []
+        for i in excelBook.index:
+            inputData.append(i)
+        if (not detection_data(inputData)):
+            visualiseData(inputData)
+            manipulatedData = manipulate_data(inputData)
+            outputManipulatedDataToFile(manipulatedData,fileName)
+        else:
+            print("Data follows the test, don't need to change")
+    except FileNotFoundError as fe:
+        print("File does not exist")

@@ -10,6 +10,7 @@ response.raise_for_status()
 
 content = BeautifulSoup(response.content,"lxml")
 table = content.find("table",id="main_table_countries_today")
-Countries = table.find_all("tbody")
-oddCountires= Countries[0].find_all("tr", class_="odd")
-print(oddCountires)
+countries = table.find("tbody").find_all("tr")
+for country in countries:
+    countriesCases = country.find("td",class_="sorting_1")
+    print(countriesCases)
