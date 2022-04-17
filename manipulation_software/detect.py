@@ -145,8 +145,8 @@ def visualiseData(inputData):
     plt.show()
 
 # inpit = list of values want to output to a file
-def outputManipulatedDataToFile(manipulatedData, fileNamw):
-    excelBook = xlsxwriter.Workbook("manipulated{fileName}")
+def outputManipulatedDataToFile(manipulatedData, fileName):
+    excelBook = xlsxwriter.Workbook(f"manipulated.xlsx")
     sheet = excelBook.add_worksheet()
     for data in enumerate(manipulatedData):
         sheet.write(0,data[0],data[1])
