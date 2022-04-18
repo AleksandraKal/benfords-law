@@ -72,6 +72,7 @@ def detection_data(data):
     return flag
 """
 Manipulates the data on how should have inputted it as
+Returns a lsit
 """
 def manipulate_data(data):
 
@@ -110,8 +111,11 @@ def manipulate_data(data):
                     newNum = int (str(digit) + randomNum[1:5])
                     print(f"the num is :{newNum}")
                     outputHash[str(digit)].append(newNum)
-    return outputHash
-
+    output = []
+    for dig in outputHash:
+        for value in outputHash[dig]:
+            output.append(value)
+    return output
 
 # # find the current distrubiton 
 # # input - list
@@ -149,6 +153,7 @@ def outputManipulatedDataToFile(manipulatedData, fileName):
     excelBook = xlsxwriter.Workbook(f"manipulated.xlsx")
     sheet = excelBook.add_worksheet()
     for data in enumerate(manipulatedData):
+        print(data[1])
         sheet.write(0,data[0],data[1])
     excelBook.close()
 
@@ -163,6 +168,7 @@ if __name__ == "__main__":
         if (not detection_data(inputData)):
             visualiseData(inputData)
             manipulatedData = manipulate_data(inputData)
+            print(manipulatedData)
             outputManipulatedDataToFile(manipulatedData,fileName)
         else:
             print("Data follows the test, don't need to change")
