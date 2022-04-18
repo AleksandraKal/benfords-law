@@ -148,8 +148,6 @@ def visualiseData(inputData):
     plt.legend(["Expected Benford distrubution","Observed distrubiton"])
     plt.show()
 
-# visualises data if input is hash
-def visualiseDataHash(inputDist):
 
 
 # inpit = list of values want to output to a file
