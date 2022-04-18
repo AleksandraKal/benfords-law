@@ -1,5 +1,5 @@
 # scrapes through top 250 tv shows
-# notice - this data set is wrong, and heavuly skwed towards 2 since most of top movies were created in 2000s
+# notice - this data set is wrong, and heavily skwed towards 2 since most of top movies were created in 2000s
 # for rating numbers also heavily skewed as all the numbers are in the range of [8-9] thus benfords law cannot apply
 # more accurate data set - remove the year number
 import requests
